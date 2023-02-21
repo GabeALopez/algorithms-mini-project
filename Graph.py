@@ -1,25 +1,19 @@
 from MiniProject1 import Phone
 import matplotlib.pyplot as plt
 import numpy as np
+import random
 
-# Fixing random state for reproducibility
-# np.random.seed(1)
-
-
-# x = np.arange(0.0, 1000.0, 1000.0)
-# y = x ** 1.3 + np.random.rand(*x.shape) * 30.0
 arry = [Phone] * 100
 
-arry[1].xpos = 500
-arry[1].ypos = 500
+fig, graph = plt.subplots()
 
-x = arry[1].xpos
-y = arry[1].xpos
-
-size = 100
-
-fig, ax = plt.subplots()
-ax.scatter(x, y, size, c="black", alpha=0.5, marker=r'$\cdot$',label="Phone")
+for i in range(100):
+    arry[i].xpos = random.randint(0, 1000)
+    arry[i].ypos = random.randint(0, 1000)
+    print(arry[i].xpos)
+    print(arry[i].ypos)
+    graph.scatter(arry[i].xpos, arry[i].ypos, 100, c="black", alpha=0.5, marker=r'$\cdot$',label="Phone")
+    
 
 plt.xlim([0,1000])
 plt.ylim([0,1000])
