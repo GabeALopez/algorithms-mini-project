@@ -7,6 +7,8 @@ class Node:
         self.cost = cost
         self.range = 50
         self.switch = 0
+        #temp bool
+        self.enabled = True
 
 
 phoneArr = [Node] * 100
