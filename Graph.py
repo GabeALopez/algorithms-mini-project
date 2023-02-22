@@ -15,6 +15,13 @@ for i in range(k):
 graph.add_artist(plt.Circle((phoneArr[10].xpos, phoneArr[10].ypos), phoneArr[20].range, color = "red", fill = False))
 graph.add_artist(plt.Circle((phoneArr[20].xpos, phoneArr[20].ypos), phoneArr[20].range, color = "blue", fill = False))
 
+#testing to find the cheapest node
+cheapest = 0;
+for i in range(100):
+    if(phoneArr[i].cost < phoneArr[cheapest.cost]):
+        cheapest = i;
+graph.add_artist(plt.Circle((phoneArr[cheapest].xpos, phoneArr[cheapest].ypos), phoneArr[cheapest].range, color = "green", fill = False))
+
 #size of graph
 plt.xlim([0,1000])
 plt.ylim([0,1000])

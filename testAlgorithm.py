@@ -31,3 +31,4 @@ for int in range(0,99):
 #print nodes
 for node in nodeArr:
   print(nodeArr[node].xpos);
+
