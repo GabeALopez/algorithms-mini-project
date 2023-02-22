@@ -21,6 +21,9 @@ for i in range(100):
     if(phoneArr[i].cost < phoneArr[cheapest].cost):
         cheapest = i;
 graph.add_artist(plt.Circle((phoneArr[cheapest].xpos, phoneArr[cheapest].ypos), phoneArr[cheapest].range, color = "green", fill = False))
+#Then take all nodes in range of this one and disable them and disable self
+#Then run program again to find next cheapest and repeat
+
 
 #size of graph
 plt.xlim([0,1000])
