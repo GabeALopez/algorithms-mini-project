@@ -1,6 +1,6 @@
-from MiniProject1 import Node
-from MiniProject1 import phoneArr
-from MiniProject1 import k
+from createNodes import Node
+from createNodes import phoneArr
+from createNodes import k
 import matplotlib.pyplot as plt
 import numpy as np
 import random
