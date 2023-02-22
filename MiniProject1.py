@@ -6,11 +6,13 @@ class Node:
         self.ypos = ypos
         self.cost = 0
         self.range = 50
+        self.switch = 1
     def __init__(self, xpos, ypos, cost):
         self.xpos = xpos
         self.ypos = ypos
         self.cost = cost
         self.range = 50
+        self.switch = 1
 
 
 phoneArr = [Node] * 100
