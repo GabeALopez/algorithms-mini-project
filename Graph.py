@@ -1,5 +1,6 @@
 from MiniProject1 import Node
 from MiniProject1 import phoneArr
+from MiniProject1 import k
 import matplotlib.pyplot as plt
 import numpy as np
 import random
@@ -7,7 +8,7 @@ import random
 fig, graph = plt.subplots()
 
 #plots points of Nodes
-for i in range(100):
+for i in range(k):
     graph.scatter(phoneArr[i].xpos, phoneArr[i].ypos, 100, c="black", alpha=0.5, marker=r'$\cdot$',label="Phone")
     
 #test circles
