@@ -58,7 +58,7 @@ for i in range(num):
                 phoneArr[i].inRangeArr[j] = bool(1)
                 phoneArr[i].numInRange = phoneArr[i].numInRange + 1
             if phoneArr[i].numInRange > 0:
-                phoneArr[i].costPerNode = round(phoneArr[i].cost / phoneArr[i].numInRange, 2)
+                phoneArr[i].costPerNode = round(phoneArr[i].cost / phoneArr[i].numInRange + 1, 2)
             else:
                 phoneArr[i].costPerNode = phoneArr[i].cost
             

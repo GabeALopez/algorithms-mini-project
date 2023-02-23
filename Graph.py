@@ -11,13 +11,13 @@ fig, graph = plt.subplots()
 
 #plots points of Nodes
 for i in range(k):
-    graph.scatter(phoneArr[i].xpos, phoneArr[i].ypos, 100, c="black", alpha=0.5, marker=r'$\cdot$',label="Phone")
+    graph.scatter(phoneArr[i].xpos, phoneArr[i].ypos, 100, color = "black", alpha=0.5, marker=r'$\cdot$',label="Phone")
     
 #test circles
 graph.add_artist(plt.Circle((neighborhood[0].xpos, neighborhood[0].ypos), 100, color = "red", fill = False))
-graph.add_artist(plt.Circle((neighborhood[1].xpos, neighborhood[1].ypos), 100, color = "yellow", fill = False))
-graph.add_artist(plt.Circle((neighborhood[2].xpos, neighborhood[2].ypos), 100, color = "orange", fill = False))
-graph.add_artist(plt.Circle((neighborhood[3].xpos, neighborhood[3].ypos), 100, color = "blue", fill = False))
+graph.add_artist(plt.Circle((neighborhood[1].xpos, neighborhood[1].ypos), 100, color = "orange", fill = False))
+graph.add_artist(plt.Circle((neighborhood[2].xpos, neighborhood[2].ypos), 100, color = "blue", fill = False))
+graph.add_artist(plt.Circle((neighborhood[3].xpos, neighborhood[3].ypos), 100, color = "purple", fill = False))
 
 #testing greedy
 #temp budget
@@ -38,16 +38,16 @@ while budget > 0:
     else:
         budget = budget - phoneArr[cheapest].cost
         phoneArr[cheapest].visited = True
-        for i in range(num):
-            if phoneArr[cheapest].inRangeArr[i] == True:
-                phoneArr[i].visited = True
-                for i in range(num):
-                    if phoneArr[cheapest].inRangeArr[i] == True:
-                        phoneArr[i].numInRange = phoneArr[i].numInRange - 1
-                        if phoneArr[i].numInRange > 0:
-                            phoneArr[i].costPerNode = round(phoneArr[i].cost / phoneArr[i].numInRange, 2)
+        for j in range(num):
+            if phoneArr[cheapest].inRangeArr[j] == True:
+                phoneArr[j].visited = True
+                for m in range(num):
+                    if phoneArr[cheapest].inRangeArr[m] == True:
+                        phoneArr[m].numInRange = phoneArr[m].numInRange - 1
+                        if phoneArr[m].numInRange > 0:
+                            phoneArr[m].costPerNode = round(phoneArr[m].cost / phoneArr[m].numInRange + 1, 2)
                         else:
-                            phoneArr[i].costPerNode = phoneArr[i].cost
+                            phoneArr[m].costPerNode = phoneArr[m].cost
 
         print("Buy Node:", cheapest, "cost:", phoneArr[cheapest].cost, "costpernode:", phoneArr[cheapest].costPerNode)
 
