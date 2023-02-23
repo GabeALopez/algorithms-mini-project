@@ -55,24 +55,14 @@ for i in range(num):
         if (i != j):
             distance = math.sqrt(math.pow(phoneArr[i].xpos - phoneArr[j].xpos, 2) + math.pow(phoneArr[i].ypos - phoneArr[j].ypos, 2))
             if (distance <= phoneArr[i].range):
-<<<<<<< Updated upstream
-                phoneArr[i].inRangeArr[j] = bool(1)
-                phoneArr[i].numInRange = phoneArr[i].numInRange + 1
-            if phoneArr[i].numInRange > 0:
-                phoneArr[i].costPerNode = round(phoneArr[i].cost / phoneArr[i].numInRange, 2)
-            else:
-                phoneArr[i].costPerNode = phoneArr[i].cost
-            
-=======
                 phoneArr[i].inRangeSet.add(phoneArr[j])
                 phoneArr[i].numInRange = len(phoneArr[i].inRangeSet)
                 
->>>>>>> Stashed changes
 for i in range(num):
     phoneArr[i].findCPF()
 
 for i in range(num):
-    print("Phone:", i, "numInRAnge:", phoneArr[i].numInRange, "cost:", phoneArr[i].cost, "costPerPhone:", phoneArr[i].costPerPhone)
+    print("Phone:", i, "numInRange:", phoneArr[i].numInRange, "cost:", phoneArr[i].cost, "costPerPhone:", phoneArr[i].costPerPhone)
 
 purchaseSet = set()
 budget = 10
@@ -80,15 +70,23 @@ tempSet = set()
 for i in range(num):
     tempSet.add(phoneArr[i])
 
-cheapest = list(tempSet)[i]
-#while len(tempSet) > 0:
-#    cheapest = list(tempSet)[0]
-for i in range(len(tempSet)):
-    if list(tempSet)[i].costPerPhone < cheapest.costPerPhone:
-        cheapest = list(tempSet)[i]
-    
-        
-print(cheapest.costPerPhone)
+cheapest = list(tempSet)[0]
+
+while budget > 0:
+    print("Budget:", round(budget, 2))
+    cheapest = list(tempSet)[0]
+    for i in range(len(tempSet)):
+        if list(tempSet)[i].costPerPhone < cheapest.costPerPhone:
+            cheapest = list(tempSet)[i]
+    if budget - cheapest.cost < 0:
+        break
+    else:
+        budget -= cheapest.cost
+        purchaseSet.add(cheapest)
+        for i in range(cheapest.numInRange):
+            tempSet.difference(cheapest.inRangeSet)
+
+print(purchaseSet)
 
 
 #test print
