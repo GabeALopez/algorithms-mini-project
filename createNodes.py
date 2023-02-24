@@ -18,17 +18,17 @@ class Phone(Coordinates):
     def addPhone(self, phone):
         self.inRangeSet.add(phone)
         self.numInRange = len(self.inRangeSet)
-        self.findCPF()
+        self.findCPP()
     def removePhone(self, phone):
         self.inRangeSet.discard(phone)
         self.numInRange = len(self.inRangeSet)
-        self.findCPF()
-    def findCPF(self):
+        self.findCPP()
+    def findCPP(self):
         self.costPerPhone = round(self.cost/(self.numInRange), 2)
 
 #np.random.seed(0)
 num = 100
-budget = 10
+budget = 50
 #0 = cluster, 1 = distributed
 generateType = 0
 
@@ -105,7 +105,7 @@ for i in range(len(phoneSet)):
 #skims through tempSet for phone with the lowest cost per phone 
 #checks if the cost of the phone will break the budget, if not then continue
 #subtract cost from budget and add phone to purchasedSet
-#descards any phones within range of the purchased phone form the tempSet
+#discards any phones within range of the purchased phone form the tempSet
 #repeat until out of phones
 tempSet = phoneSet.copy()
 purchaseSet = set()
