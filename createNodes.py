@@ -135,6 +135,9 @@ match algorithmType:
         print("test")
     case 2:
         #pure random algorithm Gabriel
+
+        
+
         print("test")
     case _:
         print("Invalid")
