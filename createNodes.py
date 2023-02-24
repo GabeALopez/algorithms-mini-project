@@ -28,7 +28,7 @@ class Phone(Coordinates):
 
 #np.random.seed(0)
 num = 100
-budget = 50
+budget = 10
 #0 = cluster, 1 = distributed
 generateType = 0
 
@@ -119,11 +119,12 @@ while budget > 0:
         if list(tempSet)[i].costPerPhone < cheapest.costPerPhone:
             cheapest = list(tempSet)[i]
     if budget - cheapest.cost < 0:
-        print("attempt purchase:", cheapest.cost)
+        print("Attempt Purchase:", cheapest,"numInRange:", cheapest.numInRange, "cost:", cheapest.cost, "costPerPhone:", cheapest.costPerPhone)
+        tempSet.remove(cheapest)
     else:
         budget -= cheapest.cost
         purchaseSet.add(cheapest)
         print("Purchased Phone:", cheapest,"numInRange:", cheapest.numInRange, "cost:", cheapest.cost, "costPerPhone:", cheapest.costPerPhone)
-    tempSet = tempSet.difference(cheapest.inRangeSet)
+        tempSet = tempSet.difference(cheapest.inRangeSet)
 
 print("Purchased Set:", purchaseSet)       
