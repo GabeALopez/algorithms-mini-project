@@ -26,7 +26,7 @@ class Phone(Coordinates):
     def findCPF(self):
         self.costPerPhone = round(self.cost/(self.numInRange), 2)
 
-np.random.seed(0)
+#np.random.seed(0)
 num = 100
 budget = 50
 #0 = cluster, 1 = distributed
@@ -106,7 +106,7 @@ for i in range(len(phoneSet)):
 #checks if the cost of the phone will break the budget, if not then continue
 #subtract cost from budget and add phone to purchasedSet
 #descards any phones within range of the purchased phone form the tempSet
-#repeat until out of phones or budget cannot afford anymore phones
+#repeat until out of phones
 tempSet = phoneSet.copy()
 purchaseSet = set()
 while budget > 0:
@@ -120,8 +120,6 @@ while budget > 0:
             cheapest = list(tempSet)[i]
     if budget - cheapest.cost < 0:
         print("attempt purchase:", cheapest.cost)
-        print("bidget break")
-        break
     else:
         budget -= cheapest.cost
         purchaseSet.add(cheapest)
