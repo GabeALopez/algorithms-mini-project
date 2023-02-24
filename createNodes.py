@@ -64,7 +64,7 @@ for i in range(4):
     randy = np.random.randint(clusterLower, clusterHigher)
     randRange = int(np.random.uniform(0.2 * num + 0.5, 0.3 * num + 0.5))
     cluster[i] = Coordinates(randx, randy)
-    if len(phoneSet) < 0.70 * num:
+    if len() < 0.70 * num:
         for j in range(randRange):
             posX = cluster[i].xpos + np.random.randint(rangeLower,rangeHigher)
             posY = cluster[i].ypos + np.random.randint(rangeLower,rangeHigher)
@@ -145,7 +145,11 @@ match algorithmType:
 
             if budget > randPhone.cost: 
                 budget - randPhone.cost
-                break
+            elif budget < randPhone.cost:
+                continue
+
+            
+            
        
 
         
