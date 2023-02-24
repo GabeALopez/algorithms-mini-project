@@ -1,34 +1,31 @@
-class Node:
-  radius = 5;
-  def __init__(self,xpos,ypos,price):
-    self.xpos = xpos;
-    self.ypos = ypos;
-    self.price = price;
-
-#temp layout array
-#rows, cols = (10, 10)
-#arr = [[Node(i,j,0) for i in range(cols)] for j in range(rows)]
+"""
+budget = 10
+while budget > 0:
+    cheapest = 0 #temp
+    #loop through and find the cheapest node that is enabled
+    for i in range(100):
+        if(phoneArr[i].cost < phoneArr[cheapest].cost) & (phoneArr[i].visited):
+            cheapest = i;
     
-#array to contain Nodes
-nodeArr = [100];
+    phoneArr[cheapest].visited = False
+    
+    if (budget - phoneArr[cheapest].cost < 0):
+        break
+    else:
+        budget = budget - phoneArr[cheapest].cost
+    #make circle
+    graph.add_artist(plt.Circle((phoneArr[cheapest].xpos, phoneArr[cheapest].ypos), phoneArr[cheapest].range, color = "black", fill = False))
+"""
+#
+#
 
-#temp stuff
-countX = 0;
-countY = 0;
-priceCount = 0.1;
-
-#initializing Nodes
-for int in range(0,99):
-  Node(countX,countY,priceCount)
-  countX + countX + 1;
-  if(countX > 10):
-    countX = 0;
-    countY = countY + 1;
-  priceCount = priceCount + priceCount;
-  nodeArr[int] = Node; #errors
-  print(int);
-
-#print nodes
-for node in nodeArr:
-  print(nodeArr[node].xpos);
-
+# Completly Random Algorithm
+#
+"""
+budget = 10
+while budget > 0:
+    rn = random.randint(0,99)
+    if (phoneArr[rn].visited) & (phoneArr[rn].cost < budget):
+        graph.add_artist(plt.Circle((phoneArr[cheapest].xpos, phoneArr[cheapest].ypos), phoneArr[cheapest].range, color = "pink", fill = False))
+        budget - budget - phoneArr[rn].cost
+"""
