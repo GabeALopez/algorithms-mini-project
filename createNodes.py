@@ -131,10 +131,10 @@ match algorithmType:
                 tempSet = tempSet.difference(cheapest.inRangeSet)
             print("Purchased Set:", purchaseSet)      
     case 1:
-        #slopy greedy algorithm
+        #slopy greedy algorithm Ethan
         print("test")
     case 2:
-        #pure random algorithm
+        #pure random algorithm Gabriel
         print("test")
     case _:
         print("Invalid")
