@@ -1,83 +1,130 @@
 import random
-import math
-class Node:
-    def __init__(self,num, xpos, ypos, cost):
-        self.xpos = xpos
-        self.ypos = ypos
-        self.cost = cost
-        self.costPerNode = 0
-        self.range = 50
-        self.visited = bool(0)
-        self.inRangeArr = [bool] * num
-        for i in range(num):
-            self.inRangeArr[i] = bool(0)
-        self.numInRange = 0
+import math 
+import numpy as np
         
-class Neighborhood:
+class Coordinates:
     def __init__(self, xpos, ypos):
         self.xpos = xpos
         self.ypos = ypos
-        
+class Phone(Coordinates):
+    def __init__(self,xpos, ypos, cost):
+        Coordinates.__init__(self, xpos, ypos)
+        self.cost = cost
+        self.costPerPhone = 0
+        self.range = 50
+        self.visited = bool(0)
+        self.inRangeSet = set()
+        self.numInRange = 0     
+    def addPhone(self, phone):
+        self.inRangeSet.add(phone)
+        self.numInRange = len(self.inRangeSet)
+        self.findCPP()
+    def removePhone(self, phone):
+        self.inRangeSet.discard(phone)
+        self.numInRange = len(self.inRangeSet)
+        self.findCPP()
+    def findCPP(self):
+        self.costPerPhone = round(self.cost/(self.numInRange), 2)
+
+#np.random.seed(0)
 num = 100
+budget = 50
+#0 = cluster, 1 = distributed
+generateType = 0
 
-phoneArr = [Node] * num
-neighborhood = [Neighborhood] * 4
+phoneSet = set()
+cluster = [Coordinates] * 4
 
-#makes array of Nodes with random positions
-k = 0
+match generateType:
+    #Cluster
+    case 0:
+        rangeLower = -100
+        rangeHigher = 100
+        clusterLower = 200
+        clusterHigher = 800
+    #Randomly Distributed
+    case 1:
+        rangeLower = -500
+        rangeHigher = 500
+        clusterLower = 499
+        clusterHigher = 500
+    #Defaults to cluster
+    case _:
+        rangeLower = -100
+        rangeHigher = 100
+        clusterLower = 200
+        clusterHigher = 800        
+        
+#generates phones with different costs and connects them as they generate
+#generates first 3 waves costing (0.1 - 1), (1.1 - 2.5), (2.6 - 4) then remaining wave costing (4.1 - 5.5) 
 for i in range(4):
-    print("Neighborhood",i)
-    randx = random.randint(200, 800)
-    randy = random.randint(200, 800)
-    neighborhood[i] = Neighborhood(randx, randy)
-    if k < 0.70 * num:
-        for j in range(int(random.uniform(0.2 * num + 0.5, 0.3 * num + 0.5))):
-            posX = neighborhood[i].xpos + random.randint(-100,100)
-            posY = neighborhood[i].ypos + random.randint(-100,100)
-            randCost = round(random.uniform(0.1 + i + i * 0.5, 1 + i * 1.5), 2)
-            phoneArr[k] = Node(num, posX, posY, randCost)
-            print("Phone:", k, "cost:",phoneArr[k].cost)
-            k = k + 1
+    print("Cluster",i)
+    randx = np.random.randint(clusterLower, clusterHigher)
+    randy = np.random.randint(clusterLower, clusterHigher)
+    randRange = int(np.random.uniform(0.2 * num + 0.5, 0.3 * num + 0.5))
+    cluster[i] = Coordinates(randx, randy)
+    if len(phoneSet) < 0.70 * num:
+        for j in range(randRange):
+            posX = cluster[i].xpos + np.random.randint(rangeLower,rangeHigher)
+            posY = cluster[i].ypos + np.random.randint(rangeLower,rangeHigher)
+            randCost = round(np.random.uniform(0.1 + i + i * 0.5, 1 + i * 1.5), 2)
+            newPhone = Phone(posX, posY, randCost)
+            phoneSet.add(newPhone)
+            for k in range(len(phoneSet)):            
+                #print("newPhone",len(phoneSet)-1,"Pinging:",k)
+                distance = math.sqrt(math.pow(newPhone.xpos - list(phoneSet)[k].xpos, 2) + math.pow(newPhone.ypos - list(phoneSet)[k].ypos, 2))
+                if distance <= newPhone.range:
+                    newPhone.addPhone(list(phoneSet)[k])
+                    list(phoneSet)[k].addPhone(newPhone)
+            print("Generated Phone:", len(phoneSet) -1, "xpos:", newPhone.xpos, "ypos:", newPhone.ypos, "cost:", newPhone.cost)
     else:
-        randx = random.randint(200, 800)
-        randy = random.randint(200, 800)
-        neighborhood[i] = Neighborhood(randx, randy)
-        for j in range(num - k):
-            posX = neighborhood[i].xpos + random.randint(-100,100)
-            posY = neighborhood[i].ypos + random.randint(-100,100)
-            randCost = round(random.uniform(0.1 + i + i * 0.5, 1 + i * 1.5),2)
-            phoneArr[k] = Node(num, posX, posY, randCost)
-            print("Phone:", k, "cost:",phoneArr[k].cost)
-            k = k + 1
-        
-for i in range(num):
-    for j in range(num):
-        if (i != j):
-            distance = math.sqrt(math.pow(phoneArr[i].xpos - phoneArr[j].xpos, 2) + math.pow(phoneArr[i].ypos - phoneArr[j].ypos, 2))
-            if (distance <= phoneArr[i].range):
-                phoneArr[i].inRangeArr[j] = bool(1)
-                phoneArr[i].numInRange = phoneArr[i].numInRange + 1
-            if phoneArr[i].numInRange > 0:
-                phoneArr[i].costPerNode = round(phoneArr[i].cost / phoneArr[i].numInRange + 1, 2)
-            else:
-                phoneArr[i].costPerNode = phoneArr[i].cost
-            
-for i in range(num):
-    print("Node ", i, ":", end=" ")
-    for j in range(num):
-        print(int(phoneArr[i].inRangeArr[j]), end="")
-    print("\n")
+        randx = np.random.randint(clusterLower,clusterHigher)
+        randy = np.random.randint(clusterLower,clusterHigher)
+        cluster[i] = Coordinates(randx, randy)
+        for j in range(num - len(phoneSet)):
+            posX = cluster[i].xpos + np.random.randint(rangeLower,rangeHigher)
+            posY = cluster[i].ypos + np.random.randint(rangeLower,rangeHigher)
+            randCost = round(np.random.uniform(0.1 + i + i * 0.5, 1 + i * 1.5),2)
+            newPhone = Phone(posX, posY, randCost)  
+            phoneSet.add(newPhone)          
+            for k in range(len(phoneSet)):
+                #print("newPhone",len(phoneSet)-1,"Pinging:",k)
+                distance = math.sqrt(math.pow(newPhone.xpos - list(phoneSet)[k].xpos, 2) + math.pow(newPhone.ypos - list(phoneSet)[k].ypos, 2))
+                if distance <= newPhone.range:
+                    newPhone.addPhone(list(phoneSet)[k])
+                    list(phoneSet)[k].addPhone(newPhone)
+            print("Generated Phone:", len(phoneSet) -1, "xpos:", newPhone.xpos, "ypos:", newPhone.ypos, "cost:", newPhone.cost)
 
-#test print
-print("Node",num - 1,  "x:", phoneArr[num - 1].xpos, "y:", phoneArr[num - 1].ypos, "numInRange:", phoneArr[num - 1].numInRange, "cost:", phoneArr[num - 1].cost, "costpernode:", phoneArr[num - 1].costPerNode)
+for i in range(len(phoneSet)):
+    print("Phone:", i, "numInRange:", list(phoneSet)[i].numInRange, "cost:", list(phoneSet)[i].cost, "costPerPhone:", list(phoneSet)[i].costPerPhone)
 
-# arr = [ [0]*1000 for i in range(1000)] 
+#algorithm
+#makes a copy of phoneSet called tempSet
+#while the budget is greater than 0,
+#it first checks if tempSet is empty, if not then continue
+#skims through tempSet for phone with the lowest cost per phone 
+#checks if the cost of the phone will break the budget, if not then continue
+#subtract cost from budget and add phone to purchasedSet
+#discards any phones within range of the purchased phone form the tempSet
+#repeat until out of phones
+tempSet = phoneSet.copy()
+purchaseSet = set()
+while budget > 0:
+    print("Budget:", round(budget, 2),"tempSet len:", len(tempSet))
+    if len(tempSet) == 0:
+        print("length break")
+        break
+    cheapest = list(tempSet)[0]
+    for i in range(len(tempSet)):
+        if list(tempSet)[i].costPerPhone < cheapest.costPerPhone:
+            cheapest = list(tempSet)[i]
+    if budget - cheapest.cost < 0:
+        print("Attempt Purchase:", cheapest,"numInRange:", cheapest.numInRange, "cost:", cheapest.cost, "costPerPhone:", cheapest.costPerPhone)
+        tempSet.remove(cheapest)
+    else:
+        budget -= cheapest.cost
+        purchaseSet.add(cheapest)
+        print("Purchased Phone:", cheapest,"numInRange:", cheapest.numInRange, "cost:", cheapest.cost, "costPerPhone:", cheapest.costPerPhone)
+        tempSet = tempSet.difference(cheapest.inRangeSet)
 
-# for i in range(len(arr)):
-#     for j in range(len(arr[i])):
-#         arr[i][j] = Phone()
-
-        
-
-
-        
+print("Purchased Set:", purchaseSet)       
