@@ -31,6 +31,7 @@ num = 100
 budget = 50
 #0 = cluster, 1 = distributed
 generateType = 0
+algorithmType = 0
 
 phoneSet = set()
 cluster = [Coordinates] * 4
@@ -98,33 +99,42 @@ for i in range(4):
 for i in range(len(phoneSet)):
     print("Phone:", i, "numInRange:", list(phoneSet)[i].numInRange, "cost:", list(phoneSet)[i].cost, "costPerPhone:", list(phoneSet)[i].costPerPhone)
 
-#algorithm
-#makes a copy of phoneSet called tempSet
-#while the budget is greater than 0,
-#it first checks if tempSet is empty, if not then continue
-#skims through tempSet for phone with the lowest cost per phone 
-#checks if the cost of the phone will break the budget, if not then continue
-#subtract cost from budget and add phone to purchasedSet
-#discards any phones within range of the purchased phone form the tempSet
-#repeat until out of phones
-tempSet = phoneSet.copy()
-purchaseSet = set()
-while budget > 0:
-    print("Budget:", round(budget, 2),"tempSet len:", len(tempSet))
-    if len(tempSet) == 0:
-        print("length break")
-        break
-    cheapest = list(tempSet)[0]
-    for i in range(len(tempSet)):
-        if list(tempSet)[i].costPerPhone < cheapest.costPerPhone:
-            cheapest = list(tempSet)[i]
-    if budget - cheapest.cost < 0:
-        print("Attempt Purchase:", cheapest,"numInRange:", cheapest.numInRange, "cost:", cheapest.cost, "costPerPhone:", cheapest.costPerPhone)
-        tempSet.remove(cheapest)
-    else:
-        budget -= cheapest.cost
-        purchaseSet.add(cheapest)
-        print("Purchased Phone:", cheapest,"numInRange:", cheapest.numInRange, "cost:", cheapest.cost, "costPerPhone:", cheapest.costPerPhone)
-        tempSet = tempSet.difference(cheapest.inRangeSet)
-
-print("Purchased Set:", purchaseSet)       
+match algorithmType:
+    case 0:
+        #greedy area algorithm
+        #makes a copy of phoneSet called tempSet
+        #while the budget is greater than 0,
+        #it first checks if tempSet is empty, if not then continue
+        #skims through tempSet for phone with the lowest cost per phone 
+        #checks if the cost of the phone will break the budget, if not then continue
+        #subtract cost from budget and add phone to purchasedSet
+        #discards any phones within range of the purchased phone form the tempSet
+        #repeat until out of phones
+        tempSet = phoneSet.copy()
+        purchaseSet = set()
+        while budget > 0:
+            print("Budget:", round(budget, 2),"tempSet len:", len(tempSet))
+            if len(tempSet) == 0:
+                print("length break")
+                break
+            cheapest = list(tempSet)[0]
+            for i in range(len(tempSet)):
+                if list(tempSet)[i].costPerPhone < cheapest.costPerPhone:
+                    cheapest = list(tempSet)[i]
+            if budget - cheapest.cost < 0:
+                print("Attempt Purchase:", cheapest,"numInRange:", cheapest.numInRange, "cost:", cheapest.cost, "costPerPhone:", cheapest.costPerPhone)
+                tempSet.remove(cheapest)
+            else:
+                budget -= cheapest.cost
+                purchaseSet.add(cheapest)
+                print("Purchased Phone:", cheapest,"numInRange:", cheapest.numInRange, "cost:", cheapest.cost, "costPerPhone:", cheapest.costPerPhone)
+                tempSet = tempSet.difference(cheapest.inRangeSet)
+            print("Purchased Set:", purchaseSet)      
+    case 1:
+        #slopy greedy algorithm
+        print("test")
+    case 2:
+        #pure random algorithm
+        print("test")
+    case _:
+        print("Invalid")
