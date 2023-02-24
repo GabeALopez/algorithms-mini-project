@@ -99,6 +99,8 @@ for i in range(4):
 for i in range(len(phoneSet)):
     print("Phone:", i, "numInRange:", list(phoneSet)[i].numInRange, "cost:", list(phoneSet)[i].cost, "costPerPhone:", list(phoneSet)[i].costPerPhone)
 
+purchaseSet = set()
+
 match algorithmType:
     case 0:
         #greedy area algorithm
@@ -111,7 +113,6 @@ match algorithmType:
         #discards any phones within range of the purchased phone form the tempSet
         #repeat until out of phones
         tempSet = phoneSet.copy()
-        purchaseSet = set()
         while budget > 0:
             print("Budget:", round(budget, 2),"tempSet len:", len(tempSet))
             if len(tempSet) == 0:
