@@ -99,7 +99,12 @@ for i in range(4):
 for i in range(len(phoneSet)):
     print("Phone:", i, "numInRange:", list(phoneSet)[i].numInRange, "cost:", list(phoneSet)[i].cost, "costPerPhone:", list(phoneSet)[i].costPerPhone)
 
+
+tempSet = phoneSet.copy()
+purchaseSet = set()
 match algorithmType:
+    
+
     case 0:
         #greedy area algorithm
         #makes a copy of phoneSet called tempSet
@@ -110,8 +115,6 @@ match algorithmType:
         #subtract cost from budget and add phone to purchasedSet
         #discards any phones within range of the purchased phone form the tempSet
         #repeat until out of phones
-        tempSet = phoneSet.copy()
-        purchaseSet = set()
         while budget > 0:
             print("Budget:", round(budget, 2),"tempSet len:", len(tempSet))
             if len(tempSet) == 0:
@@ -136,7 +139,16 @@ match algorithmType:
     case 2:
         #pure random algorithm Gabriel
 
-        list(tempSet)[23];
+        for i in range(len(tempSet)):
+            rn = random.randint(0,len(tempSet))
+            randPhone = list(tempSet)[rn];
+
+            if budget > randPhone.cost: 
+                budget - randPhone.cost
+                break
+       
+
+        
 
         print("test")
     case _:
