@@ -141,11 +141,10 @@ match algorithmType:
 
         for i in range(len(tempSet)):
             rn = random.randint(0,len(tempSet))
-            randPhone = list(tempSet)[rn-1];
+            randPhone = list(tempSet)[rn-1]
 
             if budget > randPhone.cost: 
-                budget -= randPhone.cost
-                purchaseSet.add(randPhone)
+
 
             elif budget < randPhone.cost:
                 continue
