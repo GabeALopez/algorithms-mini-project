@@ -31,7 +31,7 @@ num = 100
 budget = 50
 #0 = cluster, 1 = distributed
 generateType = 0
-algorithmType = 0
+algorithmType = 2
 
 phoneSet = set()
 cluster = [Coordinates] * 4
@@ -64,7 +64,7 @@ for i in range(4):
     randy = np.random.randint(clusterLower, clusterHigher)
     randRange = int(np.random.uniform(0.2 * num + 0.5, 0.3 * num + 0.5))
     cluster[i] = Coordinates(randx, randy)
-    if len() < 0.70 * num:
+    if len(phoneSet) < 0.70 * num:
         for j in range(randRange):
             posX = cluster[i].xpos + np.random.randint(rangeLower,rangeHigher)
             posY = cluster[i].ypos + np.random.randint(rangeLower,rangeHigher)
@@ -147,6 +147,8 @@ match algorithmType:
                 budget - randPhone.cost
             elif budget < randPhone.cost:
                 continue
+        
+        #print out the nodes to graph
 
             
             
