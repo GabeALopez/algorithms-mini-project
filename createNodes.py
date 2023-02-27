@@ -28,7 +28,7 @@ class Phone(Coordinates):
 
 #np.random.seed(0)
 num = 100
-budget = 5
+budget = 50
 #0 = cluster, 1 = distributed
 generateType = 0
 algorithmType = 2
@@ -144,11 +144,12 @@ match algorithmType:
             randPhone = list(tempSet)[rn-1]
 
             if budget > randPhone.cost: 
-
-
+                budget -= randPhone.cost
+                purchaseSet.add(randPhone)
+                tempSet.discard(randPhone)
+                print(randPhone, randPhone.cost)
             elif budget < randPhone.cost:
                 continue
-
         
         #print out the nodes to graph 
 
