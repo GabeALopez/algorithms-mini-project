@@ -141,20 +141,14 @@ match algorithmType:
 
         for i in range(len(tempSet)):
             rn = random.randint(0,len(tempSet))
-            randPhone = list(tempSet)[rn];
+            randPhone = list(tempSet)[rn-1];
 
             if budget > randPhone.cost: 
                 budget - randPhone.cost
             elif budget < randPhone.cost:
                 continue
         
-        #print out the nodes to graph
-
-            
-            
-       
-
-        
+        #print out the nodes to graph 
 
         print("test")
     case _:
