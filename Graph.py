@@ -1,3 +1,4 @@
+'''
 from createNodes import phoneSet
 from createNodes import cluster
 from createNodes import purchaseSet
@@ -32,3 +33,4 @@ for i in range(len(purchaseSet)):
 plt.xlim([0,1000])
 plt.ylim([0,1000])
 plt.show()
+'''
