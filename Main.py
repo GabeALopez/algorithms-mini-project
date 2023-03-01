@@ -32,11 +32,7 @@ num = 100
 budget = 50
 #0 = cluster, 1 = distributed
 generateType = 0
-<<<<<<< HEAD:createNodes.py
-algorithmType = 2
-=======
 algorithmType = 0
->>>>>>> f2a1410d9fff9ac0fa8e898afaf0215578ff8800:Main.py
 
 phoneSet = set()
 cluster = [Coordinates] * 4
