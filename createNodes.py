@@ -31,7 +31,7 @@ num = 100
 budget = 50
 #0 = cluster, 1 = distributed
 generateType = 0
-algorithmType = 2
+algorithmType = 1
 
 phoneSet = set()
 cluster = [Coordinates] * 4
@@ -135,7 +135,20 @@ match algorithmType:
             print("Purchased Set:", purchaseSet)      
     case 1:
         #slopy greedy algorithm Ethan
-        print("test")
+        while budget > 0:
+            cheapest = list(tempSet)[0]
+            for i in range(len(tempSet)):
+                if list(tempSet)[i].cost < cheapest.cost:
+                    cheapest = list(tempSet)[i]
+            if budget > cheapest.cost: 
+                budget -= cheapest.cost
+                purchaseSet.add(cheapest)
+                tempSet.discard(cheapest)
+                print("Purchased phone: ", cheapest, "cost: ", cheapest.cost)
+                print("Budget: ",budget)
+            elif budget < cheapest.cost:
+                break
+
     case 2:
         #pure random algorithm Gabriel
 
