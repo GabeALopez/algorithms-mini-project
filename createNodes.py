@@ -26,12 +26,12 @@ class Phone(Coordinates):
     def findCPP(self):
         self.costPerPhone = round(self.cost/(self.numInRange), 2)
 
-#np.random.seed(0)
+np.random.seed(100)
 num = 100
 budget = 50
 #0 = cluster, 1 = distributed
 generateType = 0
-algorithmType = 1
+algorithmType = 2
 
 phoneSet = set()
 cluster = [Coordinates] * 4
