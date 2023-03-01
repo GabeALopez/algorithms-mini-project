@@ -31,7 +31,7 @@ num = 100
 budget = 50
 #0 = cluster, 1 = distributed
 generateType = 0
-algorithmType = 2
+algorithmType = 0
 
 phoneSet = set()
 cluster = [Coordinates] * 4
