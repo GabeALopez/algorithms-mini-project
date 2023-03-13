@@ -1,3 +1,6 @@
+#Alexander Go
+#Gabriel Lopez
+#Ethan Diemer
 import random
 import math 
 import numpy as np
